@@ -1,283 +1,21 @@
-import React from 'react';
-import styled from 'styled-components';
-
-const Wrapper = styled.main`
-    width: 80vw;
-    height: 85vh;
-    background-color: #ECF1F7;
-    border: 6px solid rgb(146 146 146 / 9%);
-    border-radius: 2.8rem;
-    box-shadow: inset 0 0 40px rgb(0 0 0 / 15%),
-     10px 10px 31px -13.5px rgb(0 0 0 / 33%);
-    display: grid;
-    grid-template-columns: 27% 73%;
-    grid-template-rows: 30% 70%;
-    font-family: 'Open Sans', sans-serif;
-    color: #3e3d3d;
-`;
-
-const SideBar = styled.section`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    grid-row:1 / 2 span;
-    border-right: 1px solid #ccc;
-    
-    header {
-        width: 100%;
-        height: 4rem;
-        border-bottom: 1px solid #ccc;
-        border-top-left-radius: 2.5rem; 
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-    }
-    .avatar {
-        position: relative;
-        width: 27%;
-        height: 100%;
-    }
-    img {
-        width: 1.9rem;
-        height: 1.9rem;
-        border-radius: 0.4rem;
-        position: absolute;
-        top: 1.3rem;
-        left: 1.5rem;
-    }
-    .greeting {
-        width: 73%;
-        height: 100%;
-        padding-top: 0.8rem;
-        /* padding-left: 0.2rem; */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;  
-    }
-    .greeting p {
-        margin: 0;
-        font-size: 0.6rem;
-    }
-
-    .bold {
-        font-weight: bold;
-    }
-
-    section {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        height: 100%;
-        width: 100%;
-    }
-    .card {
-        width: 90%;
-        min-height: 2.5rem;
-        margin-top: 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        border-radius: 1.2rem;
-        font-size: 0.6rem;
-        background-color: #F2F3F7;
-        box-shadow: 3px 3px 8px 1px rgb(0 0 0 / 33%);
-    }
-    .btn {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        margin: 1rem;
-        border: none;
-        width: 7rem;
-        padding: 0.5rem;
-        background-color: #F2F3F7;
-        box-shadow: inset 0 0 6px rgb(0 0 0 / 10%),
-        3px 7px 21px -2px rgb(0 0 0 / 33%);
-        border-radius: 1.5rem;
-        color: #3e3e3e;
-        font-size: 0.7rem;
-        font-weight: bold;
-    }
-    .btn::focus-visible {
-        outline: none;
-    }
-    .task {
-        display: flex;
-        align-items: flex-end;
-        padding-left: 0.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .completed-label {
-        width: 90%;
-        margin: auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-`;
-
-const Header = styled.section`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(13, 13, 13, 0.06);
-    border-top-right-radius: 2.5rem; 
-    border-bottom-left-radius: 1.5rem;
-    border-bottom-right-radius: 1.5rem;
-    box-shadow: 0px 13px 27px -6.5px rgba(0, 0, 0, 0.33);
-
-    header {
-        /* margin: 0.5rem; */
-        width: 90%;
-        height: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .year-month {
-        font-weight: 600;
-    }
-
-    .today {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .today p {
-        margin: 1px;
-        font-size: 0.6rem;
-    }
-    .gray {
-        color: gray;
-    }
-
-    .search {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        background-color: #F2F3F7;
-        width: 7.3rem;
-        padding: 0.35rem;
-        box-shadow: inset 0 0 10px rgb(0 0 0 / 10%), 
-        4px 3px 12px -5px rgb(0 0 0 / 33%);
-        border-radius: 1.5rem;
-        border: 0.5px solid rgb(128 128 128 / 12%);
-    }
-    .search-input {
-        border: none;
-        background: transparent;
-        width: 80%;
-        height: 100%;
-    }
-    .search-input:focus-visible {
-        outline: none;
-    }
-
-    section {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 40%; 
-        height: 25%;
-        color: gray;
-        font-size: 0.6rem;
-    }
-    section p {
-        width: 3rem;
-    }
-    .picked {
-        color: white;
-        background: linear-gradient(37deg, rgba(227,137,60,1) 74%, rgba(235,155,86,1) 100%);
-        border-radius: 0.7rem;
-        padding: 0.1rem;
-        border: 1px solid orange;
-        box-shadow: 2px 6px 21px -3px rgb(0 0 0 / 33%);
-    }
-
-    footer {
-        width: 100%;
-        height: 35%;
-        background-color: #F5F6F8;
-        box-shadow: inset 0px 30px 30px 0px rgb(0 0 0 / 10%);
-        border-bottom-left-radius: 1.5rem;
-        border-bottom-right-radius: 1.5rem;
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        grid-template-rows: 1fr; 
-        color: gray;
-        font-size: 0.7rem;
-    }
-    footer p {
-        margin: auto;
-    }
-`;
-const Span = styled.span`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #dcdfe2;
-    width: 1.2rem;
-    height: 1.2rem;
-    border-radius: 0.6rem;
-`;
-
-
-const Section = styled.section`
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(5, 1fr); 
-
-    .day {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        font-size: 0.5rem;
-    }
-    .task-title {
-        width: 90%;
-        /* height: 88%; */
-        padding: 0.1rem;
-        border-radius: 1.2rem;
-        background-color: #F2F3F7;
-        box-shadow: 3px 3px 8px 1px rgb(0 0 0 / 33%);
-    }
-    .num {
-        height: 12%;
-    }
-    .num .selected {
-        
-    }
-    .edge-t-l,
-    .edge-t,
-    .edge-l,
-    .mid {
-        border-right: 1px solid #b9b8b8;
-        border-bottom: 1px solid #b9b8b8;
-    }
-    .edge-t-r,
-    .edge-r {
-        border-bottom: 1px solid #b9b8b8;
-    }
-    .edge-d-l, 
-    .edge-d {
-        border-right: 1px solid #b9b8b8;
-    }
-
-`;
-
+import React, { useState } from 'react';
+import Wrapper from '../components/Wrapper';
+import SideBar from '../components/SideBar';
+import Header from '../components/Header';
+import DaysSection from '../components/DaysSection';
+import Span from '../components/Span';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Modal from '../components/Modal';
 
 const Main = props => {
+    const [modalShow, setModalShow] = useState(false);
+
     return (
         <Wrapper>
+            <Modal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+            />
             <SideBar>
                 <header>
                     <div className="avatar">
@@ -290,7 +28,7 @@ const Main = props => {
                 </header>
                 <section>
                     <div className="card">
-                        <button className="btn">
+                        <button className="btn" onClick={() => setModalShow(true)}>
                             <Span><i className="fas fa-plus"></i></Span>
                             Add a Task
                         </button>
@@ -362,7 +100,7 @@ const Main = props => {
                     <p>Sat</p>
                 </footer>
             </Header>
-            <Section>
+            <DaysSection>
                 <div className="day edge-t-l"></div>
                 <div className="day edge-t"></div>
                 <div className="day edge-t"></div>
@@ -407,7 +145,7 @@ const Main = props => {
                 <div className="day edge-d"><p className="num">28</p></div>
                 <div className="day edge-d"><p className="num">29</p></div>
                 <div className="day edge-d-r"><p className="num">30</p></div>
-            </Section>
+            </DaysSection>
         </Wrapper>
     );
 };
