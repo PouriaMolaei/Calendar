@@ -4,18 +4,18 @@ import SideBar from '../components/SideBar';
 import Header from '../components/Header';
 import DaysSection from '../components/DaysSection';
 import Span from '../components/Span';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Modal from '../components/Modal';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import Modal from '../components/Modal';
 
 const Main = props => {
-    const [modalShow, setModalShow] = useState(false);
+    // const [modalShow, setModalShow] = useState(false);
 
     return (
         <Wrapper>
-            <Modal
+            {/* <Modal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
-            />
+            /> */}
             <SideBar>
                 <header>
                     <div className="avatar">
