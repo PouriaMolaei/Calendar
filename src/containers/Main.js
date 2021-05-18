@@ -5,12 +5,13 @@ const Wrapper = styled.main`
     width: 80vw;
     height: 85vh;
     background-color: #ECF1F7;
-    border: 6px solid #e0dede;
+    border: 6px solid rgb(146 146 146 / 9%);
     border-radius: 2.8rem;
-    box-shadow: 10px 10px 31px -13.5px rgba(0, 0, 0, 0.33);
+    box-shadow: inset 0 0 40px rgb(0 0 0 / 15%),
+     10px 10px 31px -13.5px rgb(0 0 0 / 33%);
     display: grid;
     grid-template-columns: 27% 73%;
-    grid-template-rows: 27% 73%;
+    grid-template-rows: 30% 70%;
     font-family: 'Open Sans', sans-serif;
     color: #3e3d3d;
 `;
@@ -20,8 +21,7 @@ const SideBar = styled.section`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    grid-row-start: 1;
-    grid-row-end: 3;
+    grid-row:1 / 2 span;
     border-right: 1px solid #ccc;
     
     header {
@@ -95,7 +95,8 @@ const SideBar = styled.section`
         width: 7rem;
         padding: 0.5rem;
         background-color: #F2F3F7;
-        box-shadow: 3px 7px 21px -2px rgb(0 0 0 / 33%);
+        box-shadow: inset 0 0 6px rgb(0 0 0 / 10%),
+        3px 7px 21px -2px rgb(0 0 0 / 33%);
         border-radius: 1.5rem;
         color: #3e3e3e;
         font-size: 0.7rem;
@@ -110,6 +111,7 @@ const SideBar = styled.section`
         padding-left: 0.5rem;
         margin-bottom: 1rem;
     }
+
     .completed-label {
         width: 90%;
         margin: auto;
@@ -124,7 +126,6 @@ const Header = styled.section`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0;
     border-bottom: 1px solid rgba(13, 13, 13, 0.06);
     border-top-right-radius: 2.5rem; 
     border-bottom-left-radius: 1.5rem;
@@ -132,8 +133,9 @@ const Header = styled.section`
     box-shadow: 0px 13px 27px -6.5px rgba(0, 0, 0, 0.33);
 
     header {
+        /* margin: 0.5rem; */
         width: 90%;
-        height: 3rem;
+        height: 50%;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -158,14 +160,24 @@ const Header = styled.section`
     }
 
     .search {
-        background-color: #E3E7F0;
-        width: 8.7rem;
-        padding: 0.4rem;
-        box-shadow: 4px 3px 12px -5px rgb(0 0 0 / 33%);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #F2F3F7;
+        width: 7.3rem;
+        padding: 0.35rem;
+        box-shadow: inset 0 0 10px rgb(0 0 0 / 10%), 
+        4px 3px 12px -5px rgb(0 0 0 / 33%);
         border-radius: 1.5rem;
         border: 0.5px solid rgb(128 128 128 / 12%);
     }
-    .search:focus-visible {
+    .search-input {
+        border: none;
+        background: transparent;
+        width: 80%;
+        height: 100%;
+    }
+    .search-input:focus-visible {
         outline: none;
     }
 
@@ -174,6 +186,7 @@ const Header = styled.section`
         align-items: center;
         justify-content: space-between;
         width: 40%; 
+        height: 25%;
         color: gray;
         font-size: 0.6rem;
     }
@@ -191,8 +204,9 @@ const Header = styled.section`
 
     footer {
         width: 100%;
-        height: auto;
+        height: 35%;
         background-color: #F5F6F8;
+        box-shadow: inset 0px 30px 30px 0px rgb(0 0 0 / 10%);
         border-bottom-left-radius: 1.5rem;
         border-bottom-right-radius: 1.5rem;
         display: grid;
@@ -200,6 +214,9 @@ const Header = styled.section`
         grid-template-rows: 1fr; 
         color: gray;
         font-size: 0.7rem;
+    }
+    footer p {
+        margin: auto;
     }
 `;
 const Span = styled.span`
@@ -214,9 +231,47 @@ const Span = styled.span`
 
 
 const Section = styled.section`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr); 
+
+    .day {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 0.5rem;
+    }
+    .task-title {
+        width: 90%;
+        /* height: 88%; */
+        padding: 0.1rem;
+        border-radius: 1.2rem;
+        background-color: #F2F3F7;
+        box-shadow: 3px 3px 8px 1px rgb(0 0 0 / 33%);
+    }
+    .num {
+        height: 12%;
+    }
+    .num .selected {
+        
+    }
+    .edge-t-l,
+    .edge-t,
+    .edge-l,
+    .mid {
+        border-right: 1px solid #b9b8b8;
+        border-bottom: 1px solid #b9b8b8;
+    }
+    .edge-t-r,
+    .edge-r {
+        border-bottom: 1px solid #b9b8b8;
+    }
+    .edge-d-l, 
+    .edge-d {
+        border-right: 1px solid #b9b8b8;
+    }
+
 `;
 
 
@@ -285,7 +340,10 @@ const Main = props => {
                         <p>Today</p>
                         <p className="gray">18, MON</p>
                     </div>
-                    <input type="search" className="search" placeholder="Search" />
+                    <div className="search">
+                        <Span><i className="fas fa-search"></i></Span>
+                        <input type="search" className="search-input" placeholder="Search" />
+                    </div>
                 </header>
                 <section>
                     <Span><i className="fas fa-angle-left"></i></Span>
@@ -304,7 +362,52 @@ const Main = props => {
                     <p>Sat</p>
                 </footer>
             </Header>
-            <Section >DAYS</Section>
+            <Section>
+                <div className="day edge-t-l"></div>
+                <div className="day edge-t"></div>
+                <div className="day edge-t"></div>
+                <div className="day edge-t"></div>
+                <div className="day edge-t"></div>
+                <div className="day edge-t"><p className="num">1</p></div>
+                <div className="day edge-t-r"><p className="num">2</p></div>
+                <div className="day edge-l"><p>3</p></div>
+                <div className="day mid"><p className="num">4</p></div>
+                <div className="day mid"><p className="num">5</p></div>
+                <div className="day mid"><p className="num">6</p></div>
+                <div className="day mid"><p className="num">7</p></div>
+                <div className="day mid"><p className="num">8</p></div>
+                <div className="day edge-r"><p className="num">9</p></div>
+                <div className="day edge-l"><p className="num">10</p></div>
+                <div className="day mid"><p className="num">11</p></div>
+                <div className="day mid"><p className="num">12</p></div>
+                <div className="day mid"><p className="num">13</p></div>
+                <div className="day mid"><p className="num">14</p></div>
+                <div className="day mid">
+                    <p className="num">15</p>
+                    <p className="task-title">Buy Anniversary...</p>
+                </div>
+                <div className="day edge-r"><p className="num">16</p></div>
+                <div className="day edge-l"><p className="num">17</p></div>
+                <div className="day mid">
+                    <p className="num selected"><Span>18</Span></p>
+                    <p className="task-title">Book Return Tick...</p>
+                </div>
+                <div className="day mid">
+                    <p className="num">19</p>
+                    <p className="task-title">Meet Chris in the...</p>
+                </div>
+                <div className="day mid"><p className="num">20</p></div>
+                <div className="day mid"><p className="num">21</p></div>
+                <div className="day mid"><p className="num">22</p></div>
+                <div className="day edge-r"><p className="num">23</p></div>
+                <div className="day edge-d-l"><p className="num">24</p></div>
+                <div className="day edge-d"><p className="num">25</p></div>
+                <div className="day edge-d"><p className="num">26</p></div>
+                <div className="day edge-d"><p className="num">27</p></div>
+                <div className="day edge-d"><p className="num">28</p></div>
+                <div className="day edge-d"><p className="num">29</p></div>
+                <div className="day edge-d-r"><p className="num">30</p></div>
+            </Section>
         </Wrapper>
     );
 };
