@@ -4,5 +4,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(90deg, rgba(219,227,240,1) 12%, rgba(228,232,241,1) 83%);
 }
 
