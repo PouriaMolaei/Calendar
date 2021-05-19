@@ -15,3 +15,10 @@ export default styled.div`
     z-index: 50;
     transition: all 0.5s;
 `
+
+export const ClickableBackdrop = styled.div`
+    min-width: 100vw;
+    min-height: 100vh;
+    position: fixed;
+    z-index: 75;
+`

@@ -34,7 +34,6 @@ export default styled.section`
         width: 73%;
         height: 100%;
         padding-top: 0.8rem;
-        /* padding-left: 0.2rem; */
         display: flex;
         flex-direction: column;
         justify-content: center;

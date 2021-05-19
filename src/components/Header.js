@@ -44,7 +44,7 @@ export default styled.section`
         align-items: center;
         background-color: #F2F3F7;
         width: 7.3rem;
-        padding: 0.35rem;
+        padding: 0.3rem;
         box-shadow: inset 0 0 10px rgb(0 0 0 / 10%), 
         4px 3px 12px -5px rgb(0 0 0 / 33%);
         border-radius: 1.5rem;
