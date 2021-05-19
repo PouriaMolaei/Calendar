@@ -11,7 +11,6 @@ export const setTasks = () => {
         );
         if (!res.ok) throw new Error("Something went wrong!");
         const resData = await res.json();
-        console.log('resData', resData);
 
         const tasks = [];
         for (const key in resData) {
@@ -22,7 +21,6 @@ export const setTasks = () => {
                 resData[key].isDone,
             ));
         };
-        console.log('action', tasks);
 
         dispatch({ type: SET_TASKS, tasks });
     };

@@ -15,8 +15,14 @@ export default styled.button`
     color: #3e3e3e;
     font-size: 0.7rem;
     font-weight: bold;
-
-    &::focus-visible {
+    &:hover {
+        color: white;
+        background: linear-gradient(37deg, rgba(227,137,60,1) 74%, rgba(235,155,86,1) 100%);
+        span {
+            background-color: #3e3d3d;
+        }
+    }
+    &:focus-visible {
         outline: none;
     }
 `;

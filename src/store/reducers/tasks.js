@@ -6,7 +6,6 @@ const initialState = {
 };
 
 const Reducer = (state = initialState, action) => {
-    console.log('reducerState', state.tasks);
     switch (action.type) {
         case actions.SET_TASKS:
             return {

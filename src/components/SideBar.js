@@ -75,16 +75,14 @@ export default styled.section`
         padding-left: 0.5rem;
         margin-bottom: 1rem;
     }
-
-    .completed-contaner {
-        
-    }
-
     .card-label {
         width: 90%;
         margin: auto;
         display: flex;
         align-items: center;
         justify-content: space-between;
+    }    
+    .completed {
+        margin-top: 0.5rem;
     }
 `;

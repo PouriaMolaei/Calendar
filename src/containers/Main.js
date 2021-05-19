@@ -9,6 +9,7 @@ import DaysSection from '../components/DaysSection';
 import Span from '../components/Span';
 import Backdrop, { ClickableBackdrop } from '../components/Backdrop';
 import Modal from '../components/Modal';
+import cells from '../data/cells';
 
 import DatePicker from '@hassanmojab/react-modern-calendar-datepicker';
 
@@ -27,6 +28,10 @@ const Main = props => {
     const dispatch = useDispatch();
 
     const submitHandler = () => {
+        if (title === '') {
+            alert("Task title should not be empty!");
+            return;
+        }
         dispatch(actions.addTask(title, date));
         setTitle('');
         setDate(initDate);
@@ -40,7 +45,6 @@ const Main = props => {
     }, [dispatch]);
 
     const incompleted = tasks.filter(i => i.isDone === false);
-    // console.log('incom', incompleted);
     const completed = tasks.filter(i => i.isDone === true);
 
     const isDoneHandler = (e, id) => {
@@ -135,20 +139,22 @@ const Main = props => {
                             <p>Completed</p>
                             <Span><i className="fas fa-angle-down"></i></Span>
                         </div>
-                        {completed.map(i => (
-                            <div className="task" key={i.id}>
-                                <input
-                                    className="task-check"
-                                    type="checkbox"
-                                    checked={i.isDone}
-                                    onChange={(e) => isDoneHandler(e, i.id)}
-                                    id="t1"
-                                />
-                                <label className="task-label" htmlFor="t1">
-                                    {i.title}
-                                </label>
-                            </div>
-                        ))}
+                        <div className="completed">
+                            {completed.map(i => (
+                                <div className="task" key={i.id}>
+                                    <input
+                                        className="task-check"
+                                        type="checkbox"
+                                        checked={i.isDone}
+                                        onChange={(e) => isDoneHandler(e, i.id)}
+                                        id="t1"
+                                    />
+                                    <label className="task-label" htmlFor="t1">
+                                        {i.title}
+                                    </label>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </section>
             </SideBar>
@@ -182,50 +188,23 @@ const Main = props => {
                 </footer>
             </Header>
             <DaysSection>
-                <div className="day edge-t-l"></div>
-                <div className="day edge-t"></div>
-                <div className="day edge-t"></div>
-                <div className="day edge-t"></div>
-                <div className="day edge-t"></div>
-                <div className="day edge-t"><p className="num">1</p></div>
-                <div className="day edge-t-r"><p className="num">2</p></div>
-                <div className="day edge-l"><p>3</p></div>
-                <div className="day mid"><p className="num">4</p></div>
-                <div className="day mid"><p className="num">5</p></div>
-                <div className="day mid"><p className="num">6</p></div>
-                <div className="day mid"><p className="num">7</p></div>
-                <div className="day mid"><p className="num">8</p></div>
-                <div className="day edge-r"><p className="num">9</p></div>
-                <div className="day edge-l"><p className="num">10</p></div>
-                <div className="day mid"><p className="num">11</p></div>
-                <div className="day mid"><p className="num">12</p></div>
-                <div className="day mid"><p className="num">13</p></div>
-                <div className="day mid"><p className="num">14</p></div>
-                <div className="day mid">
-                    <p className="num">15</p>
-                    <p className="task-title">Buy Anniversary...</p>
-                </div>
-                <div className="day edge-r"><p className="num">16</p></div>
-                <div className="day edge-l"><p className="num">17</p></div>
-                <div className="day mid">
-                    <p className="num selected"><Span>18</Span></p>
-                    <p className="task-title">Book Return Tick...</p>
-                </div>
-                <div className="day mid">
-                    <p className="num">19</p>
-                    <p className="task-title">Meet Chris in the...</p>
-                </div>
-                <div className="day mid"><p className="num">20</p></div>
-                <div className="day mid"><p className="num">21</p></div>
-                <div className="day mid"><p className="num">22</p></div>
-                <div className="day edge-r"><p className="num">23</p></div>
-                <div className="day edge-d-l"><p className="num">24</p></div>
-                <div className="day edge-d"><p className="num">25</p></div>
-                <div className="day edge-d"><p className="num">26</p></div>
-                <div className="day edge-d"><p className="num">27</p></div>
-                <div className="day edge-d"><p className="num">28</p></div>
-                <div className="day edge-d"><p className="num">29</p></div>
-                <div className="day edge-d-r"><p className="num">30</p></div>
+                {cells.map((cell, i) => (
+                    <div key={i} className={`day ${cell.className}`}>
+                        <p className="num">{cell.day}</p>
+                        {tasks.filter(
+                            t => t.date.day === cell.day
+                                && t.date.month === 11
+                        ).map(t => (
+                            <p className="task-title">
+                                {
+                                    t.title.length > 17 &&
+                                    t.title.substring(0, 16) + "..."
+                                }
+                            </p>
+                        ))}
+
+                    </div>
+                ))}
             </DaysSection>
         </Wrapper>
     );
