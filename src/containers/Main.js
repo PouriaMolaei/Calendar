@@ -24,18 +24,15 @@ const Main = props => {
     };
     const [date, setDate] = useState(initDate);
 
-    const [isDone, setIsDone] = useState(false);
-    console.log('radioCheck', isDone);
-
     const dispatch = useDispatch();
 
     const submitHandler = () => {
-        dispatch(actions.addTask(title, date, isDone));
+        dispatch(actions.addTask(title, date));
         setTitle('');
         setDate(initDate);
         setShow(false);
     };
-    
+
     const tasks = useSelector(state => state.tasks);
 
     useEffect(() => {
@@ -48,7 +45,6 @@ const Main = props => {
 
     const isDoneHandler = (e, id) => {
         const isChecked = e.target.checked;
-        setIsDone(isChecked);
         dispatch(actions.updateTask(isChecked, id));
     };
 
@@ -138,21 +134,21 @@ const Main = props => {
                         <div className="card-label">
                             <p>Completed</p>
                             <Span><i className="fas fa-angle-down"></i></Span>
-                            {completed.map(i => (
-                                <div className="task" key={i.id}>
-                                    <input
-                                        className="task-check"
-                                        type="checkbox"
-                                        checked={i.isDone}
-                                        onChange={(e) => isDoneHandler(e, i.id)}
-                                        id="t1"
-                                    />
-                                    <label className="task-label" htmlFor="t1">
-                                        {i.title}
-                                    </label>
-                                </div>
-                            ))}
                         </div>
+                        {completed.map(i => (
+                            <div className="task" key={i.id}>
+                                <input
+                                    className="task-check"
+                                    type="checkbox"
+                                    checked={i.isDone}
+                                    onChange={(e) => isDoneHandler(e, i.id)}
+                                    id="t1"
+                                />
+                                <label className="task-label" htmlFor="t1">
+                                    {i.title}
+                                </label>
+                            </div>
+                        ))}
                     </div>
                 </section>
             </SideBar>

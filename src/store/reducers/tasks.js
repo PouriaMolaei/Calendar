@@ -8,7 +8,7 @@ const initialState = {
 const Reducer = (state = initialState, action) => {
     console.log('reducerState', state.tasks);
     switch (action.type) {
-        case actions.SET_TASKS: 
+        case actions.SET_TASKS:
             return {
                 tasks: action.tasks
             };
@@ -18,21 +18,21 @@ const Reducer = (state = initialState, action) => {
                 action.id,
                 action.title,
                 action.date,
-                action.isDone
+                false
             );
             return {
                 tasks: state.tasks.concat(newTask)
             };
-        
-            case actions.UPDATE_TASK:
-                const updatedTask = state.tasks.map(i => {
-                    if (i.id !== action.id) return i;
-                    i.isDone = action.isDone;
-                    return i;
-                });
-                return {
-                    tasks: updatedTask
-                };
+
+        case actions.UPDATE_TASK:
+            const updatedTask = state.tasks.map(i => {
+                if (i.id !== action.id) return i;
+                i.isDone = action.isDone;
+                return i;
+            });
+            return {
+                tasks: updatedTask
+            };
 
         default:
             return state;

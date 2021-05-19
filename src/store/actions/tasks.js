@@ -28,7 +28,7 @@ export const setTasks = () => {
     };
 };
 
-export const addTask = (title, date, isDone) => {
+export const addTask = (title, date) => {
     return async dispatch => {
         const res = await fetch(
             'https://calendar-ad5d7-default-rtdb.firebaseio.com/tasks.json',
@@ -37,7 +37,7 @@ export const addTask = (title, date, isDone) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ title, date, isDone })
+                body: JSON.stringify({ title, date, isDone:false })
             }
         );
         if (!res.ok) throw new Error("Something went wrong!");
@@ -48,13 +48,14 @@ export const addTask = (title, date, isDone) => {
             id: resData.name,
             title,
             date,
-            isDone
         });
     };
 };
 
 export const updateTask = (isDone, id) => {
     return async dispatch => {
+        dispatch({ type: UPDATE_TASK, id, isDone });
+
         const res = await fetch(
             `https://calendar-ad5d7-default-rtdb.firebaseio.com/tasks/${id}.json`,
             {
@@ -69,6 +70,5 @@ export const updateTask = (isDone, id) => {
         );
         if (!res.ok) throw new Error("Something went wrong!");
 
-        dispatch({ type: UPDATE_TASK, id, isDone });
     };
 };
