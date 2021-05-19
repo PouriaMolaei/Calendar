@@ -1,4 +1,4 @@
-import Task from '../../components/models/Task';
+import Task from '../../models/Task';
 import * as actions from '../actions/tasks';
 
 const initialState = {

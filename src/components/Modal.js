@@ -12,8 +12,8 @@ const MyModal = styled.div`
   transition: all 0.2s ease-in;
   z-index: 100;
   background: #ECF1F7;
-  width: 40vw;
-  height: 40vh;
+  width: 35vw;
+  height: 35vh;
   padding: 1rem;
   border-radius: 1rem;
   display: flex;
@@ -35,30 +35,32 @@ const MyModal = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    width: 90%;
+    width: 85%;
     height: 20%;
+    box-sizing: border-box;
+    margin-bottom: 0.5rem;
     border-bottom: 1px solid #ccc;
   }
   header p {
-    margin: 0;
+    margin: 0rem;
   }
   section {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60%;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 85%;
+    height: 55%;
     font-size: 0.8rem;
   }
   .input-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 90%;
-      height: 100%;
+    width: 70%;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr;
   }
   .input-label {
-    min-width: 30%;
+    width: 40%;
     height: 100%;
   }
   .input {
@@ -71,6 +73,7 @@ const MyModal = styled.div`
     4px 3px 12px -5px rgb(0 0 0 / 33%);
     border-radius: 1.5rem;
     border: 0.5px solid rgb(128 128 128 / 12%);
+    text-align: center;
   }
   .validation {
     background-color: ${props => props.isValid ? "#F2F3F7" : "salmon"}; 
@@ -82,11 +85,11 @@ const MyModal = styled.div`
     font-size: 0.35rem;
   }
   footer {
-    width: 90%;
+    width: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    height: 20%;
+    height: 25%;
   }
 `
 
@@ -103,6 +106,16 @@ const Modal = props => {
     isValidHandler
   } = props;
 
+  const dateInput = ({ ref }) => (
+    <input
+      readOnly
+      ref={ref} // necessary
+      placeholder="I'm a custom input"
+      value={date ? `${date.year}/${date.month}/${date.day}` : ''}
+      className="input" 
+    />
+  );
+
   return (
     <Backdrop show={show}>
       <ClickableBackdrop onClick={() => setShow(false)} />
@@ -111,11 +124,11 @@ const Modal = props => {
           <i className="fas fa-times"></i>
         </button>
         <header>
-          <p>Adding New task</p>
+          <p>Adding New task...</p>
         </header>
         <section>
           <div className="input-container" >
-            {/* <label htmlFor="title" className="title-label">Your Task:</label> */}
+            <label htmlFor="title" className="title-label">Task:</label>
             <input
               type="text"
               className="input validation"
@@ -128,7 +141,7 @@ const Modal = props => {
             />
           </div>
           <div className="input-container">
-            {/* <label htmlFor="date" className="input-label">Due Date:</label> */}
+            <label htmlFor="date" className="input-label">Date:</label>
             <DatePicker
               id="date"
               value={date}
@@ -137,7 +150,8 @@ const Modal = props => {
               shouldHighlightWeekends
               // calendarPopperPosition="right"
               calendarClassName="calendar"
-              inputClassName="input"
+              renderInput={dateInput}
+              // inputClassName="input"
               colorPrimary="linear-gradient(37deg, rgba(227,137,60,1) 74%, rgba(235,155,86,1) 100%)"
             />
           </div>
