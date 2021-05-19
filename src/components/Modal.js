@@ -72,6 +72,9 @@ const MyModal = styled.div`
     border-radius: 1.5rem;
     border: 0.5px solid rgb(128 128 128 / 12%);
   }
+  .validation {
+    background-color: ${props => props.isValid ? "#F2F3F7" : "salmon"}; 
+  }
   .input:focus-visible {
       outline: none;
   }
@@ -95,13 +98,15 @@ const Modal = props => {
     title,
     setTitle,
     date,
-    setDate
+    setDate,
+    isValid,
+    isValidHandler
   } = props;
-  
+
   return (
     <Backdrop show={show}>
       <ClickableBackdrop onClick={() => setShow(false)} />
-      <MyModal show={show}>
+      <MyModal show={show} isValid={isValid}>
         <button className="x" onClick={() => setShow(false)}>
           <i className="fas fa-times"></i>
         </button>
@@ -113,10 +118,13 @@ const Modal = props => {
             {/* <label htmlFor="title" className="title-label">Your Task:</label> */}
             <input
               type="text"
-              className="input"
-              placeholder="New Task..."
+              className="input validation"
+              placeholder={isValid ? "New Task..." : "This field is required!"}
               value={title}
-              onChange={e => setTitle(e.target.value)}
+              onChange={e => {
+                setTitle(e.target.value);
+                isValidHandler();
+              }}
             />
           </div>
           <div className="input-container">
@@ -127,7 +135,7 @@ const Modal = props => {
               onChange={setDate}
               inputPlaceholder="Select a day"
               shouldHighlightWeekends
-              calendarPopperPosition="right"
+              // calendarPopperPosition="right"
               calendarClassName="calendar"
               inputClassName="input"
               colorPrimary="linear-gradient(37deg, rgba(227,137,60,1) 74%, rgba(235,155,86,1) 100%)"

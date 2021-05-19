@@ -19,17 +19,23 @@ const Main = props => {
     };
     const [date, setDate] = useState(initDate);
 
+    const [isValid, setIsValid] = useState(true);
+
     const dispatch = useDispatch();
 
     const submitHandler = () => {
         if (title === '') {
-            alert("Task title should not be empty!");
+            setIsValid(false);
             return;
         }
         dispatch(actions.addTask(title, date));
         setTitle('');
         setDate(initDate);
         setShow(false);
+    };
+
+    const isValidHandler = () => {
+        setIsValid(true);
     };
 
     const tasks = useSelector(state => state.tasks);
@@ -56,6 +62,8 @@ const Main = props => {
                 setTitle={setTitle}
                 date={date}
                 setDate={setDate}
+                isValid={isValid}
+                isValidHandler={isValidHandler}
             />
             <SideBar 
                 incompleted={incompleted}
