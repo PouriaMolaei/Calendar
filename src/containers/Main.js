@@ -32,37 +32,13 @@ const Main = props => {
         dispatch(addTask(title, date, isDone));
         setTitle('');
         setDate(initDate);
+        setShow(false);
     };
 
     const tasks = useSelector(state => state.tasks);
     const incompleted = tasks.filter(i => i.isDone === false);
+    console.log('incom', incompleted);
     const completed = tasks.filter(i => i.isDone === true);
-
-    // const toDos;
-    // if (!incompleted.length === 0) {
-    //     toDos = <Btn onClick={() => setShow(true)}>
-    //         <Span><i className="fas fa-plus"></i></Span>
-    //         Add a Task
-    //             </Btn>
-    //     {
-    //         incompleted.map(i => (
-    //             <div className="task" key={i.id}>
-    //                 <input
-    //                     className="task-check"
-    //                     type="radio"
-    //                     value={isDone}
-    //                     onChange={e => {
-    //                         setIsDone(e.currentTarget.value);
-    //                     }}
-    //                     id="t1"
-    //                 />
-    //                 <label className="task-label" htmlFor="t1">
-    //                     {i.title}
-    //                 </label>
-    //             </div>
-    //         ))
-    //     }
-    // }
 
     return (
         <Wrapper>
@@ -122,16 +98,31 @@ const Main = props => {
                 <section>
                     <div className="card">
                         {incompleted.length === 0
-                            ?<div className="card-label">
+                            ? <div className="card-label">
                                 <p>Add Task</p>
                                 <Span onClick={() => setShow(true)}><i className="fas fa-plus"></i></Span>
                             </div>
-                            :<Btn onClick={() => setShow(true)}>
-                            <Span><i className="fas fa-plus"></i></Span>
+                            : <Btn onClick={() => setShow(true)}>
+                                <Span><i className="fas fa-plus"></i></Span>
                                 Add a Task
                             </Btn>
-                            {incompleted.map(i => <div/>)}
                         }
+                        {incompleted.map(i => (
+                            <div className="task" key={i.id}>
+                                <input
+                                    className="task-check"
+                                    type="checkbox"
+                                    value={isDone}
+                                    onChange={e => {
+                                        setIsDone(e.target.checked);
+                                    }}
+                                    id="t1"
+                                />
+                                <label className="task-label" htmlFor="t1">
+                                    {i.title}
+                                </label>
+                            </div>
+                        ))}
                     </div>
                     <div className="card">
                         <div className="card-label">

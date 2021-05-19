@@ -71,7 +71,7 @@ export default styled.section`
     }
     .task {
         display: flex;
-        align-items: flex-end;
+        align-items: center;
         padding-left: 0.5rem;
         margin-bottom: 1rem;
     }
