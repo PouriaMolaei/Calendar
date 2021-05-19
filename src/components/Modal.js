@@ -35,7 +35,7 @@ const MyModal = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    width: 85%;
+    width: 80%;
     height: 20%;
     box-sizing: border-box;
     margin-bottom: 0.5rem;
@@ -55,22 +55,19 @@ const MyModal = styled.div`
   }
   .input-container {
     width: 100%;
-    /* display: flex;
-    justify-content: center;
-    align-items: center;  */
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    grid-template-rows: 1fr;
+    display: flex;
+    justify-content: space-around;
+    align-items: center; 
   }
+  
   .input-label {
-    width: 40%;
-    height: 100%;
     text-align: left;
+    margin-right: 0.6rem;
   }
   .input {
     border: none;
     background: transparent;
-    width: 100%;
+    width: 15rem;
     padding: 0.5rem; 
     background-color: #F2F3F7;
     box-shadow: inset 0 0 10px rgb(0 0 0 / 10%), 
@@ -86,7 +83,7 @@ const MyModal = styled.div`
       outline: none;
   }
   .calendar {
-    font-size: 0.35rem;
+    font-size: 0.45rem;
   }
   footer {
     width: 100%;
@@ -110,16 +107,6 @@ const Modal = props => {
     isValidHandler
   } = props;
 
-  const dateInput = ({ ref }) => (
-    <input
-      readOnly
-      ref={ref} // necessary
-      placeholder="I'm a custom input"
-      value={date ? `${date.year}/${date.month}/${date.day}` : ''}
-      className="input" 
-    />
-  );
-
   return (
     <Backdrop show={show}>
       <ClickableBackdrop onClick={() => setShow(false)} />
@@ -132,7 +119,7 @@ const Modal = props => {
         </header>
         <section>
           <div className="input-container" >
-            <label htmlFor="title" className="title-label">Task:</label>
+            <label htmlFor="title" className="input-label">Task:</label>
             <input
               type="text"
               className="input validation"
@@ -152,10 +139,8 @@ const Modal = props => {
               onChange={setDate}
               inputPlaceholder="Select a day"
               shouldHighlightWeekends
-              // calendarPopperPosition="right"
               calendarClassName="calendar"
-              renderInput={dateInput}
-              // inputClassName="input"
+              inputClassName="input"
               colorPrimary="linear-gradient(37deg, rgba(227,137,60,1) 74%, rgba(235,155,86,1) 100%)"
             />
           </div>
