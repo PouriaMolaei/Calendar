@@ -25,9 +25,10 @@ const Main = props => {
     const [date, setDate] = useState(initDate);
 
     const [isDone, setIsDone] = useState(false);
-    // console.log('radioCheck', isDone);
+    console.log('radioCheck', isDone);
 
     const dispatch = useDispatch();
+
     const submitHandler = () => {
         dispatch(actions.addTask(title, date, isDone));
         setTitle('');
@@ -41,11 +42,15 @@ const Main = props => {
         dispatch(actions.setTasks());
     }, [dispatch]);
 
-
-
     const incompleted = tasks.filter(i => i.isDone === false);
     // console.log('incom', incompleted);
     const completed = tasks.filter(i => i.isDone === true);
+
+    const isDoneHandler = (e, id) => {
+        const isChecked = e.target.checked;
+        setIsDone(isChecked);
+        dispatch(actions.updateTask(isChecked, id));
+    };
 
     return (
         <Wrapper>
@@ -119,10 +124,8 @@ const Main = props => {
                                 <input
                                     className="task-check"
                                     type="checkbox"
-                                    value={isDone}
-                                    onChange={e => {
-                                        setIsDone(e.target.checked);
-                                    }}
+                                    checked={i.isDone}
+                                    onChange={(e) => isDoneHandler(e, i.id)}
                                     id="t1"
                                 />
                                 <label className="task-label" htmlFor="t1">
@@ -139,11 +142,9 @@ const Main = props => {
                                 <div className="task" key={i.id}>
                                     <input
                                         className="task-check"
-                                        type="radio"
-                                        value={isDone}
-                                        onChange={e => {
-                                            setIsDone(e.currentTarget.value);
-                                        }}
+                                        type="checkbox"
+                                        checked={i.isDone}
+                                        onChange={(e) => isDoneHandler(e, i.id)}
                                         id="t1"
                                     />
                                     <label className="task-label" htmlFor="t1">

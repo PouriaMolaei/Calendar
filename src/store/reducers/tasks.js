@@ -23,6 +23,16 @@ const Reducer = (state = initialState, action) => {
             return {
                 tasks: state.tasks.concat(newTask)
             };
+        
+            case actions.UPDATE_TASK:
+                const updatedTask = state.tasks.map(i => {
+                    if (i.id !== action.id) return i;
+                    i.isDone = action.isDone;
+                    return i;
+                });
+                return {
+                    tasks: updatedTask
+                };
 
         default:
             return state;

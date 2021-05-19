@@ -1,7 +1,8 @@
 import Task from "../../components/models/Task";
 
-export const ADD_TASK = 'ADD_TASK';
 export const SET_TASKS = 'SET_TASKS';
+export const ADD_TASK = 'ADD_TASK';
+export const UPDATE_TASK = 'UPDATE_TASK';
 
 export const setTasks = () => {
     return async dispatch => {
@@ -49,5 +50,25 @@ export const addTask = (title, date, isDone) => {
             date,
             isDone
         });
+    };
+};
+
+export const updateTask = (isDone, id) => {
+    return async dispatch => {
+        const res = await fetch(
+            `https://calendar-ad5d7-default-rtdb.firebaseio.com/tasks/${id}.json`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    isDone
+                })
+            }
+        );
+        if (!res.ok) throw new Error("Something went wrong!");
+
+        dispatch({ type: UPDATE_TASK, id, isDone });
     };
 };
