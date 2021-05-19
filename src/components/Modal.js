@@ -19,6 +19,10 @@ const Modal = styled.div`
     top: 0.5rem;
     right: 0.8rem;
     font-size: 0.7rem;
+    border: none;
+  }
+  .x:focus-visible {
+      outline: none;
   }
   header {
     display: flex;

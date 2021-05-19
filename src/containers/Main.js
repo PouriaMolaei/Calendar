@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addTask } from '../store/actions/tasks';
 import Wrapper from '../components/Wrapper';
 import SideBar from '../components/SideBar';
 import Btn from '../components/Btn';
@@ -8,42 +10,74 @@ import Span from '../components/Span';
 import Backdrop, { ClickableBackdrop } from '../components/Backdrop';
 import Modal from '../components/Modal';
 
-import DatePicker from 'react-modern-calendar-datepicker';
+import DatePicker from '@hassanmojab/react-modern-calendar-datepicker';
 
 const Main = props => {
     const [show, setShow] = useState(false);
 
     const [title, setTitle] = useState('');
-    console.log(title);
-    const [selectedDay, setSelectedDay] = useState({
+
+    const initDate = {
         year: 2019,
         month: 11,
         day: 18,
-    });
-    console.log(selectedDay);
-    const [isDone, setIsDone] = useState(false);
-    console.log(isDone);
-    const isDoneHandler = e => {
-        setIsDone(e.currentTarget.value);
-        console.log(e);
     };
+    const [date, setDate] = useState(initDate);
+
+    const [isDone, setIsDone] = useState(false);
+    console.log('radioCheck', isDone);
+
+    const dispatch = useDispatch();
+    const submitHandler = () => {
+        dispatch(addTask(title, date, isDone));
+        setTitle('');
+        setDate(initDate);
+    };
+
+    const tasks = useSelector(state => state.tasks);
+    const incompleted = tasks.filter(i => i.isDone === false);
+    const completed = tasks.filter(i => i.isDone === true);
+
+    // const toDos;
+    // if (!incompleted.length === 0) {
+    //     toDos = <Btn onClick={() => setShow(true)}>
+    //         <Span><i className="fas fa-plus"></i></Span>
+    //         Add a Task
+    //             </Btn>
+    //     {
+    //         incompleted.map(i => (
+    //             <div className="task" key={i.id}>
+    //                 <input
+    //                     className="task-check"
+    //                     type="radio"
+    //                     value={isDone}
+    //                     onChange={e => {
+    //                         setIsDone(e.currentTarget.value);
+    //                     }}
+    //                     id="t1"
+    //                 />
+    //                 <label className="task-label" htmlFor="t1">
+    //                     {i.title}
+    //                 </label>
+    //             </div>
+    //         ))
+    //     }
+    // }
 
     return (
         <Wrapper>
-            <Backdrop
-                show={show}
-            >
+            <Backdrop show={show}>
                 <ClickableBackdrop onClick={() => setShow(false)} />
                 <Modal show={show}>
-                    <btn className="x" onClick={() => setShow(false)}>
+                    <button className="x" onClick={() => setShow(false)}>
                         <i className="fas fa-times"></i>
-                    </btn>
+                    </button>
                     <header>
                         <p>Adding New task</p>
                     </header>
                     <section>
                         <div className="input-container" >
-                            {/* <label for="title" className="title-label">Your Task:</label> */}
+                            {/* <label htmlFor="title" className="title-label">Your Task:</label> */}
                             <input
                                 type="text"
                                 className="input"
@@ -53,11 +87,11 @@ const Main = props => {
                             />
                         </div>
                         <div className="input-container">
-                            {/* <label for="date" className="input-label">Due Date:</label> */}
+                            {/* <label htmlFor="date" className="input-label">Due Date:</label> */}
                             <DatePicker
                                 id="date"
-                                value={selectedDay}
-                                onChange={setSelectedDay}
+                                value={date}
+                                onChange={setDate}
                                 inputPlaceholder="Select a day"
                                 shouldHighlightWeekends
                                 calendarPopperPosition="right"
@@ -68,7 +102,7 @@ const Main = props => {
                         </div>
                     </section>
                     <footer>
-                        <Btn onClick={() => { }}>
+                        <Btn onClick={submitHandler}>
                             <Span><i className="fas fa-check"></i></Span>
                             Submit
                         </Btn>
@@ -87,70 +121,38 @@ const Main = props => {
                 </header>
                 <section>
                     <div className="card">
-                        <Btn onClick={() => setShow(true)}>
+                        {incompleted.length === 0
+                            ?<div className="card-label">
+                                <p>Add Task</p>
+                                <Span onClick={() => setShow(true)}><i className="fas fa-plus"></i></Span>
+                            </div>
+                            :<Btn onClick={() => setShow(true)}>
                             <Span><i className="fas fa-plus"></i></Span>
-                            Add a Task
-                        </Btn>
-                        <div className="task">
-                            <input
-                                className="task-check"
-                                type="radio"
-                                value={isDone}
-                                onChange={isDoneHandler}
-                                id="t1" />
-                            <label className="task-label" for="t1">
-                                Wireframe for contact page
-                            </label>
-                        </div>
-                        <div className="task">
-                            <input
-                                className="task-check"
-                                type="radio"
-                                value={isDone}
-                                onChange={isDoneHandler}
-                                id="t1" />
-                            <label className="task-label" for="t1">
-                                Book Return Ticket
-                            </label>
-                        </div>
-                        <div className="task">
-                            <input
-                                className="task-check"
-                                type="radio"
-                                value={isDone}
-                                onChange={isDoneHandler}
-                                id="t1" />
-                            <label className="task-label" for="t1">
-                                Buy Anniversary Gift
-                            </label>
-                        </div>
-                        <div className="task">
-                            <input
-                                className="task-check"
-                                type="radio"
-                                value={isDone}
-                                onChange={isDoneHandler}
-                                id="t1" />
-                            <label className="task-label" for="t1">
-                                Pay Electricity Bill
-                            </label>
-                        </div>
-                        <div className="task">
-                            <input
-                                className="task-check"
-                                type="radio"
-                                value={isDone}
-                                onChange={isDoneHandler}
-                                id="t1" />
-                            <label className="task-label" for="t1">
-                                Meet Chris in the Conference
-                            </label>
-                        </div>
+                                Add a Task
+                            </Btn>
+                            {incompleted.map(i => <div/>)}
+                        }
                     </div>
                     <div className="card">
-                        <div className="completed-label">
+                        <div className="card-label">
                             <p>Completed</p>
                             <Span><i className="fas fa-angle-down"></i></Span>
+                            {completed.map(i => (
+                                <div className="task" key={i.id}>
+                                    <input
+                                        className="task-check"
+                                        type="radio"
+                                        value={isDone}
+                                        onChange={e => {
+                                            setIsDone(e.currentTarget.value);
+                                        }}
+                                        id="t1"
+                                    />
+                                    <label className="task-label" htmlFor="t1">
+                                        {i.title}
+                                    </label>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </section>

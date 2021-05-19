@@ -76,7 +76,7 @@ export default styled.section`
         margin-bottom: 1rem;
     }
 
-    .completed-label {
+    .card-label {
         width: 90%;
         margin: auto;
         display: flex;
