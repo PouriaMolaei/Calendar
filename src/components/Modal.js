@@ -1,13 +1,19 @@
+import React from 'react';
 import styled from 'styled-components';
 
-const Modal = styled.div`
+import Btn from '../components/Btn';
+import Span from '../components/Span';
+import Backdrop, { ClickableBackdrop } from '../components/Backdrop';
+import DatePicker from '@hassanmojab/react-modern-calendar-datepicker';
+
+const MyModal = styled.div`
   visibility: ${props => props.show ? "visible" : "hidden"};
   transform: ${props => props.show ? "translateY(0rem)" : "translateY(-15rem)"};
   transition: all 0.2s ease-in;
   z-index: 100;
   background: #ECF1F7;
-  width: 50vw;
-  height: 50vh;
+  width: 40vw;
+  height: 40vh;
   padding: 1rem;
   border-radius: 1rem;
   display: flex;
@@ -16,8 +22,8 @@ const Modal = styled.div`
   align-items: center;
   .x {
     position: absolute;
-    top: 0.5rem;
-    right: 0.8rem;
+    top: 0.6rem;
+    right: 0.7rem;
     font-size: 0.7rem;
     border: none;
   }
@@ -79,7 +85,64 @@ const Modal = styled.div`
     align-items: center;
     height: 20%;
   }
-
 `
+
+const Modal = props => {
+  const {
+    show,
+    setShow,
+    submitHandler,
+    title,
+    setTitle,
+    date,
+    setDate
+  } = props;
+  
+  return (
+    <Backdrop show={show}>
+      <ClickableBackdrop onClick={() => setShow(false)} />
+      <MyModal show={show}>
+        <button className="x" onClick={() => setShow(false)}>
+          <i className="fas fa-times"></i>
+        </button>
+        <header>
+          <p>Adding New task</p>
+        </header>
+        <section>
+          <div className="input-container" >
+            {/* <label htmlFor="title" className="title-label">Your Task:</label> */}
+            <input
+              type="text"
+              className="input"
+              placeholder="New Task..."
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+            />
+          </div>
+          <div className="input-container">
+            {/* <label htmlFor="date" className="input-label">Due Date:</label> */}
+            <DatePicker
+              id="date"
+              value={date}
+              onChange={setDate}
+              inputPlaceholder="Select a day"
+              shouldHighlightWeekends
+              calendarPopperPosition="right"
+              calendarClassName="calendar"
+              inputClassName="input"
+              colorPrimary="linear-gradient(37deg, rgba(227,137,60,1) 74%, rgba(235,155,86,1) 100%)"
+            />
+          </div>
+        </section>
+        <footer>
+          <Btn onClick={submitHandler}>
+            <Span><i className="fas fa-check"></i></Span>
+            Submit
+          </Btn>
+        </footer>
+      </MyModal>
+    </Backdrop>
+  );
+};
 
 export default Modal;

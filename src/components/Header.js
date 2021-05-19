@@ -1,6 +1,9 @@
+import React from 'react';
 import styled from 'styled-components';
 
-export default styled.section`
+import Span from '../components/Span';
+
+const MyHeader = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -99,3 +102,39 @@ export default styled.section`
         margin: auto;
     }
 `;
+
+const Header = props => {
+    return (
+        <MyHeader>
+            <header>
+                <p className="year-month">November 2019</p>
+                <div className="today">
+                    <p>Today</p>
+                    <p className="gray">18, MON</p>
+                </div>
+                <div className="search">
+                    <Span><i className="fas fa-search"></i></Span>
+                    <input type="search" className="search-input" placeholder="Search" />
+                </div>
+            </header>
+            <section>
+                <Span><i className="fas fa-angle-left"></i></Span>
+                <p>Day</p>
+                <p>Week</p>
+                <p className="picked">Month</p>
+                <Span><i className="fas fa-angle-right"></i></Span>
+            </section>
+            <footer>
+                <p>Sun</p>
+                <p>Mon</p>
+                <p>Tue</p>
+                <p>Wed</p>
+                <p>Thu</p>
+                <p>Fri</p>
+                <p>Sat</p>
+            </footer>
+        </MyHeader>
+    );
+};
+
+export default Header;

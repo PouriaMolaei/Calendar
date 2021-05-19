@@ -1,6 +1,10 @@
+import React from 'react';
 import styled from 'styled-components';
 
-export default styled.section`
+import Span from '../components/Span';
+import Btn from '../components/Btn';
+
+const MySideBar = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -86,3 +90,80 @@ export default styled.section`
         margin-top: 0.5rem;
     }
 `;
+
+const SideBar = props => {
+    const {
+        incompleted,
+        completed,
+        setShow,
+        isDoneHandler
+    } = props;
+
+    return (
+        <MySideBar>
+            <header>
+                <div className="avatar">
+                    <img src={require('../assets/imgs/linus.jpg').default} alt="linus" />
+                </div>
+                <div className="greeting">
+                    <p>Good morning.</p>
+                    <p className="bold">Linus!</p>
+                </div>
+            </header>
+            <section>
+                <div className="card">
+                    {incompleted.length === 0
+                        ? <div className="card-label">
+                            <p>Add Task</p>
+                            <Span onClick={() => setShow(true)}><i className="fas fa-plus"></i></Span>
+                        </div>
+                        : <Btn onClick={() => setShow(true)}>
+                            <Span><i className="fas fa-plus"></i></Span>
+                                Add a Task
+                            </Btn>
+                    }
+                    {incompleted.map(i => (
+                        <div className="task" key={i.id}>
+                            <input
+                                className="task-check"
+                                type="checkbox"
+                                checked={i.isDone}
+                                onChange={(e) => isDoneHandler(e, i.id)}
+                                id="t1"
+                            />
+                            <label className="task-label" htmlFor="t1">
+                                {i.title}
+                            </label>
+                        </div>
+                    ))}
+                </div>
+                <div className="card">
+                    <div className="card-label">
+                        <p>Completed</p>
+                        <Span><i className="fas fa-angle-down"></i></Span>
+                    </div>
+                    {completed.length !== 0 &&
+                        <div className="completed">
+                            {completed.map(i => (
+                                <div className="task" key={i.id}>
+                                    <input
+                                        className="task-check"
+                                        type="checkbox"
+                                        checked={i.isDone}
+                                        onChange={(e) => isDoneHandler(e, i.id)}
+                                        id="t1"
+                                    />
+                                    <label className="task-label" htmlFor="t1">
+                                        {i.title}
+                                    </label>
+                                </div>
+                            ))}
+                        </div>
+                    }
+                </div>
+            </section>
+        </MySideBar>
+    );
+};
+
+export default SideBar;
