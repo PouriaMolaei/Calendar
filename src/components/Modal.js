@@ -54,10 +54,10 @@ const MyModal = styled.div`
     font-size: 0.8rem;
   }
   .input-container {
-    /* width: 100%;
-    display: flex;
+    width: 100%;
+    /* display: flex;
     justify-content: center;
-    align-items: center; */
+    align-items: center;  */
     display: grid;
     grid-template-columns: 1fr 4fr;
     grid-template-rows: 1fr;
