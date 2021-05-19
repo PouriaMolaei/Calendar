@@ -1,35 +1,21 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import styled from 'styled-components';
 
-const MyModal = props => {
-    return (
-      <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Modal heading
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <h4>Centered Modal</h4>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-            consectetur ac, vestibulum at eros.
-     
-       </p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  };
+const Modal = styled.div`
+  visibility: ${props => props.show ? "visible" : "hidden"};
+  transform: ${props => props.show ? "translateY(5rem)" : "translateY(-5rem)"};
+  transition: all 0.2s ease-in;
+  position: fixed;
+  top: 30vw;
+  left: 30vh;
+  z-index: 100;
+  background: #ECF1F7;
+  width: 40vw;
+  height: 40vh;
+  padding: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
-  export default MyModal;
+export default Modal;

@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import Wrapper from '../components/Wrapper';
 import SideBar from '../components/SideBar';
+import Btn from '../components/Btn';
 import Header from '../components/Header';
 import DaysSection from '../components/DaysSection';
 import Span from '../components/Span';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import Modal from '../components/Modal';
+import Modal from '../components/Modal';
+import Backdrop from '../components/Backdrop';
 
 const Main = props => {
-    // const [modalShow, setModalShow] = useState(false);
+    const [show, setShow] = useState(false);
 
     return (
         <Wrapper>
-            {/* <Modal
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-            /> */}
+            <Backdrop show={show} />
+            <Modal show={show}>
+                <Btn onClick={() => setShow(false)}>
+                    Close
+                </Btn>
+            </Modal>
             <SideBar>
                 <header>
                     <div className="avatar">
@@ -28,10 +31,10 @@ const Main = props => {
                 </header>
                 <section>
                     <div className="card">
-                        <button className="btn" onClick={() => setModalShow(true)}>
+                        <Btn onClick={() => setShow(true)}>
                             <Span><i className="fas fa-plus"></i></Span>
                             Add a Task
-                        </button>
+                        </Btn>
                         <div className="task">
                             <input className="task-check" type="radio" id="t1" />
                             <label className="task-label" for="t1">
