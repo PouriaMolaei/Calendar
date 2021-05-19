@@ -49,6 +49,7 @@ export default styled.section`
         4px 3px 12px -5px rgb(0 0 0 / 33%);
         border-radius: 1.5rem;
         border: 0.5px solid rgb(128 128 128 / 12%);
+        font-size: 0.8rem;
     }
     .search-input {
         border: none;

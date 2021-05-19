@@ -13,12 +13,16 @@ const Main = props => {
 
     return (
         <Wrapper>
-            <Backdrop show={show} />
-            <Modal show={show}>
-                <Btn onClick={() => setShow(false)}>
-                    Close
+            <Backdrop
+                show={show}
+                onClick={() => setShow(false)}
+            >
+                <Modal show={show}>
+                    <Btn onClick={() => setShow(false)}>
+                        Close
                 </Btn>
-            </Modal>
+                </Modal>
+            </Backdrop>
             <SideBar>
                 <header>
                     <div className="avatar">
