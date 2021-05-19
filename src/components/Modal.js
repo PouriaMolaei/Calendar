@@ -54,7 +54,10 @@ const MyModal = styled.div`
     font-size: 0.8rem;
   }
   .input-container {
-    width: 70%;
+    /* width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; */
     display: grid;
     grid-template-columns: 1fr 4fr;
     grid-template-rows: 1fr;
@@ -62,6 +65,7 @@ const MyModal = styled.div`
   .input-label {
     width: 40%;
     height: 100%;
+    text-align: left;
   }
   .input {
     border: none;
@@ -87,7 +91,7 @@ const MyModal = styled.div`
   footer {
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     height: 25%;
   }
