@@ -8,9 +8,14 @@ const initialState = {
 const Reducer = (state = initialState, action) => {
     console.log('reducerState', state.tasks);
     switch (action.type) {
+        case actions.SET_TASKS: 
+            return {
+                tasks: action.tasks
+            };
+
         case actions.ADD_TASK:
             const newTask = new Task(
-                new Date().toString(),
+                action.id,
                 action.title,
                 action.date,
                 action.isDone

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTask } from '../store/actions/tasks';
+import * as actions from '../store/actions/tasks';
 import Wrapper from '../components/Wrapper';
 import SideBar from '../components/SideBar';
 import Btn from '../components/Btn';
@@ -25,19 +25,26 @@ const Main = props => {
     const [date, setDate] = useState(initDate);
 
     const [isDone, setIsDone] = useState(false);
-    console.log('radioCheck', isDone);
+    // console.log('radioCheck', isDone);
 
     const dispatch = useDispatch();
     const submitHandler = () => {
-        dispatch(addTask(title, date, isDone));
+        dispatch(actions.addTask(title, date, isDone));
         setTitle('');
         setDate(initDate);
         setShow(false);
     };
-
+    
     const tasks = useSelector(state => state.tasks);
+
+    useEffect(() => {
+        dispatch(actions.setTasks());
+    }, [dispatch]);
+
+
+
     const incompleted = tasks.filter(i => i.isDone === false);
-    console.log('incom', incompleted);
+    // console.log('incom', incompleted);
     const completed = tasks.filter(i => i.isDone === true);
 
     return (

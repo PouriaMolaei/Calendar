@@ -1,10 +1,11 @@
 import './App.css';
 import Main from './containers/Main';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import TasksReducer from './store/reducers/tasks'; 
+import ReduxThunk from 'redux-thunk';
 
-const store = createStore(TasksReducer);
+const store = createStore(TasksReducer, applyMiddleware(ReduxThunk));
 
 function App() {
   return (

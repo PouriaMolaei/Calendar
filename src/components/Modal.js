@@ -38,8 +38,7 @@ const Modal = styled.div`
   }
   section {
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     height: 60%;
     font-size: 0.8rem;

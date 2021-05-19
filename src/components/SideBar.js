@@ -76,6 +76,10 @@ export default styled.section`
         margin-bottom: 1rem;
     }
 
+    .completed-contaner {
+        
+    }
+
     .card-label {
         width: 90%;
         margin: auto;
